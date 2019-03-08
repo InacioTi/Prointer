@@ -18,6 +18,7 @@ import com.faculdade.faculdade.Login.helpers.InputValidation;
 import com.faculdade.faculdade.Login.sql.DatabaseHelper;
 import com.faculdade.faculdade.R;
 import com.faculdade.faculdade.RecycleView.activies.Main2Activity;
+import com.faculdade.faculdade.RecycleView.activies.TarefaActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final AppCompatActivity activity = LoginActivity.this;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
 
-    private TextInputEditText textInputEditTextEmail;
+    public static TextInputEditText textInputEditTextEmail;
     private TextInputEditText textInputEditTextPassword;
 
     private AppCompatButton appCompatButtonLogin;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private DatabaseHelper databaseHelper;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initViews();
         initListeners();
         initObjects();
-
 
     }
 
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
                 verifyFromSQLite();
@@ -144,5 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);
     }
+
+
 
 }

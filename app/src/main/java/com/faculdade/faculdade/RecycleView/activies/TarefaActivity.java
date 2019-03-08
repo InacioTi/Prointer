@@ -117,7 +117,7 @@ public class TarefaActivity extends AppCompatActivity {
                 String descri = txtDesc.getText().toString();
                 String semestre = spnSemestre.getSelectedItem().toString();
                 boolean vip = chkVip.isChecked();
-                String professor = rgProfessor.getCheckedRadioButtonId() == R.id.rbProfessor ? "P" : "A";
+                String professor = rgProfessor.getCheckedRadioButtonId() == R.id.rbProfessor ? "Professor" : "Aluno";
 
                 //salvando os dados
                 TarefaDAO dao = new TarefaDAO(getBaseContext());
@@ -138,7 +138,7 @@ public class TarefaActivity extends AppCompatActivity {
                     //alerta ao alterar o recycle view
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("Alteracao");
-                    builder.setMessage("Dados alterado por : " + vip);
+                    builder.setMessage("Dados alterado por : " + professor);
                     builder.show();
                     //alerta ao alterar o recycle view
 

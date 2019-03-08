@@ -13,8 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.faculdade.faculdade.Login.activities.LoginActivity;
 import com.faculdade.faculdade.Login.activities.UsersListActivity;
@@ -33,7 +35,6 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,20 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+
+        //colocar email no nav_header
+        //Toast.makeText(getApplicationContext(), "LOGIN: " + LoginActivity.textInputEditTextEmail, Toast.LENGTH_SHORT).show();
+
+        //EditText editextEmail = (EditText) findViewById(R.id.textInputEditTextEmail);
+
+        //String VariavelEmail = editextEmail.getText().toString();
+
+        TextView TextViewEmail = (TextView) headerView.findViewById(R.id.textEmailView);
+
+        TextViewEmail.setText("joohrodrigues@hotmail.com");
+        //colocar email no nav_header
+
     }
 
     public void linearVertical(View view) {
@@ -138,5 +153,7 @@ public class Main2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 }
