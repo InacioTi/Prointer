@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@mipmap/disciplinas"
+            android:title="Disciplinas" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@mipmap/frequencia"
+            android:title="Frequencia" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@mipmap/notas"
+            android:title="Notas" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@mipmap/noticias"
+            android:title="Noticias" />
+        <item
+            android:id="@+id/nav_tarefas"
+            android:icon="@mipmap/noticias"
+            android:title="Tarefas" />
+        <item
+            android:id="@+id/nav_projetos"
+            android:icon="@mipmap/noticias"
+            android:title="Projetos" />
+    </group>
+
+    <item android:title="Comunicação">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartilhar" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Enviar" />
+
+            <item
+                android:id="@+id/nav_mensagens"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Mensagens" />
+        </menu>
+    </item>
+
+</menu>

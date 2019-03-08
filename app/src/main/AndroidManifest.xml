@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.faculdade.faculdade">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".RecycleView.activies.TarefaActivity"
+            android:label="@string/title_activity_tarefas"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
+        <activity
+            android:name=".Login.activities.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".RecycleView.activies.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+        <activity
+            android:name=".RecycleView.activies.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Login.activities.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login.activities.UsersListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecycleView.activies.LinearLayoutActivity"
+            android:label="@string/Linear"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".RecycleView.activies.GridLayoutActivity"
+            android:label="@string/Grid" />
+        <activity
+            android:name=".RecycleView.activies.GridLayoutCardAdpter"
+            android:label="@string/Grid" />
+        <activity
+            android:name=".RecycleView.activies.StaggeredGridLayoutActivity"
+            android:label="@string/Stargger" />
+        <activity
+            android:name=".RecycleView.activies.LinearLayoutHorizontalActivity"
+            android:label="@string/LinearLayout" />
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,54 @@
+<resources>
+    <!--  recycle view -->
+    <string name="main_button_grid">Grid (grade)</string>
+    <string name="main_button_linear_horizontal">Lista horizontal</string>
+    <string name="main_button_linear_vertical">Lista vertical</string>
+    <string name="main_button_staggered">Grid escalonável</string>
+    <string name="delete_view">Deletar view ao clicar</string>
+    <string name="more_view">Incrementa view ao clicar</string>
+
+    <!--  recycle view -->
+
+
+    <!--  Login -->
+
+
+    <string name="text_accounts">Todas as contas</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="hint_registro">Registro de edicao</string>
+    <string name="hint_confirm_password">Confirme a Senha</string>
+    <string name="text_login">Entrar</string>
+    <string name="text_register">Registro</string>
+    <string name="error_message_name">Digite o nome completo</string>
+    <string name="error_message_email">Digite o email válido</string>
+    <string name="error_message_age">Digite a idade</string>
+    <string name="error_message_password">Digite a senha</string>
+    <string name="success_message">Registro bem sucedido</string>
+    <string name="text_not_member">Ainda não tem conta? Crie uma</string>
+    <string name="text_already_member">já é um membro? Entrar</string>
+    <string name="error_email_exists">E-mail já existe</string>
+    <string name="error_password_match">Senha não corresponde</string>
+    <string name="error_valid_email_password">E-mail ou senha incorretos</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_hello">Hello,</string>
+    <string name="text_title">Ragnar School</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle">aluno.ragnar@ragnar.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+    <!--  Nome do actvity -->
+    <string name="app_name">Ragnar</string>
+    <string name="title_activity_main2">Ragnar School</string>
+    <string name="nav_header_title">Ragnar School</string>
+    <string name="Linear">Disciplinas</string>
+    <string name="Grid">Projetos</string>
+    <string name="Stargger">Tarefas</string>
+    <string name="LinearLayout">Noticias</string>
+    <string name="title_activity_tarefas">TarefasActivity</string>
+    <!--  Nome do actvity -->
+
+</resources>
