@@ -1,7 +1,11 @@
 package com.faculdade.faculdade.RecycleView.activies;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,7 @@ import org.w3c.dom.Text;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
 
     @Override
@@ -44,6 +50,7 @@ public class Main2Activity extends AppCompatActivity
             }
         });
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -54,17 +61,11 @@ public class Main2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
 
-        //colocar email no nav_header
-        //Toast.makeText(getApplicationContext(), "LOGIN: " + LoginActivity.textInputEditTextEmail, Toast.LENGTH_SHORT).show();
-
-        //EditText editextEmail = (EditText) findViewById(R.id.textInputEditTextEmail);
-
-        //String VariavelEmail = editextEmail.getText().toString();
 
         TextView TextViewEmail = (TextView) headerView.findViewById(R.id.textEmailView);
 
         TextViewEmail.setText("joohrodrigues@hotmail.com");
-        //colocar email no nav_header
+
 
     }
 

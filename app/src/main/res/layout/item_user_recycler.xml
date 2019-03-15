@@ -75,7 +75,6 @@
                 android:layout_weight="1"
                 android:text="@string/hint_password"
                 android:textColor="@android:color/darker_gray" />
-
         </LinearLayout>
 
     </LinearLayout>

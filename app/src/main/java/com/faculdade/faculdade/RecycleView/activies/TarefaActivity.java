@@ -5,7 +5,22 @@ import  com.faculdade.faculdade.RecycleView.repository.Tarefa;
 import  com.faculdade.faculdade.RecycleView.model.TarefaDAO;
 import com.faculdade.faculdade.Login.activities.LoginActivity;
 import com.faculdade.faculdade.Login.adapter.UsersRecyclerAdapter;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -24,13 +39,36 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.ArrayList;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class TarefaActivity extends AppCompatActivity {
+
+    private ProgressDialog progressDialog;
+
+    Button chooseImg;
+    ImageView imgView;
+    //Button down;
+
+    int PICK_IMAGE_REQUEST = 1011;
+    Uri filePath;
+    ProgressDialog pd;
+
+    //creating reference to firebase storage
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com");    //change the url according to your firebase app
+
 
     Tarefa TarefaEditado = null;
 
@@ -49,6 +87,7 @@ public class TarefaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarefas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -80,6 +119,21 @@ public class TarefaActivity extends AppCompatActivity {
             }
         }
 
+
+        chooseImg = (Button)findViewById(R.id.btnAnexar);      //choose button
+        imgView = (ImageView)findViewById(R.id.imageView3);
+        //down=(Button)findViewById(R.id.download); //image view
+
+        chooseImg.setOnClickListener(new View.OnClickListener() {       //Image Selection start
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +158,41 @@ public class TarefaActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(filePath != null) {
+                    pd.setMax(100);
+                    pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    pd.show();
+
+                    StorageReference childRef = storageRef.child(filePath.getLastPathSegment());
+
+                    UploadTask uploadTask = childRef.putFile(filePath);
+
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            pd.dismiss();
+                            Toast.makeText(TarefaActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(TarefaActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                    double progress =(100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();                // for displaying the upload percentage in progress bar.
+                                    pd.setMessage(((int)progress) + "% Uploaded..");
+                                }
+                            });
+                }
+                else {
+                    Toast.makeText(TarefaActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                }
+
+
                 //carregando os campos
 
                 EditText txtTitulo = (EditText)findViewById(R.id.txtTitulo);
@@ -208,4 +297,33 @@ public class TarefaActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+
+
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);            //getting image from gallery
+
+
+                imgView.setImageBitmap(bitmap);                                                               //Setting image to ImageView
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void showProgressDialog(String title, String msg) {
+        progressDialog = ProgressDialog.show(this, title, msg, true);
+    }
+    protected void dismissProgressDialog() {
+        progressDialog.dismiss();
+    }
+
 }
