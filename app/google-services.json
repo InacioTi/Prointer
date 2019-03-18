@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "257236092814",
+    "firebase_url": "https://faculdade-e089d.firebaseio.com",
+    "project_id": "faculdade-e089d",
+    "storage_bucket": "faculdade-e089d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257236092814:android:656d5109cf9a7e9a",
+        "android_client_info": {
+          "package_name": "com.faculdade.faculdade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257236092814-76bhtehdk3bmob3k0j02gf87e28echru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faculdade.faculdade",
+            "certificate_hash": "3dec8a6593a2103a559032b3ade4dcb7df66fabb"
+          }
+        },
+        {
+          "client_id": "257236092814-97lpp0ep4nk1kjquatm198iffuopcki4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7u9csZ34pP6VgubIZGKoIcFBarfJWuZ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257236092814-97lpp0ep4nk1kjquatm198iffuopcki4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
