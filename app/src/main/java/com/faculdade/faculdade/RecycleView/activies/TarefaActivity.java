@@ -17,12 +17,15 @@ import java.io.IOException;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsProvider;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -59,15 +62,17 @@ public class TarefaActivity extends AppCompatActivity {
     Button chooseImg;
     ImageView imgView;
     //Button down;
-
     int PICK_IMAGE_REQUEST = 1011;
+    int PDF = 0;
     Uri filePath;
     ProgressDialog pd;
 
     //creating reference to firebase storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com");    //change the url according to your firebase app
+
+
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com");    //altere o URL de acordo com seu aplicativo firebase
 
 
     Tarefa TarefaEditado = null;
@@ -119,18 +124,26 @@ public class TarefaActivity extends AppCompatActivity {
             }
         }
 
+        // escolhendo a pasta firebase
+        RadioButton rdPasta1 = (RadioButton)findViewById(R.id.rdPasta1);
+        RadioButton rdPasta2 = (RadioButton)findViewById(R.id.rdPasta2);
 
-        chooseImg = (Button)findViewById(R.id.btnAnexar);      //choose button
+        chooseImg = (Button)findViewById(R.id.btnAnexar);      //butao de anexar
         imgView = (ImageView)findViewById(R.id.imageView3);
+        pd = new ProgressDialog(this);
+        pd.setIndeterminate(true);
+        pd.setTitle("Upload Process");                              //progessobar
+        // progress spinner
         //down=(Button)findViewById(R.id.download); //image view
 
-        chooseImg.setOnClickListener(new View.OnClickListener() {       //Image Selection start
+        chooseImg.setOnClickListener(new View.OnClickListener() {       //Selecionar arquivo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+                intent.setType("*/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Arquivo"), PICK_IMAGE_REQUEST);
+
             }
         });
 
@@ -156,6 +169,8 @@ public class TarefaActivity extends AppCompatActivity {
 
         Button btnSalvar = (Button)findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
                 if(filePath != null) {
@@ -163,33 +178,79 @@ public class TarefaActivity extends AppCompatActivity {
                     pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     pd.show();
 
-                    StorageReference childRef = storageRef.child(filePath.getLastPathSegment());
+                        // escolhendo a pasta firebase
+                        if(rdPasta1.isChecked()) {
+                            StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com/teste1");    //altere o URL de acordo com seu aplicativo firebase
 
-                    UploadTask uploadTask = childRef.putFile(filePath);
+                            StorageReference childRef = storageRef.child(filePath.getLastPathSegment());
 
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            pd.dismiss();
-                            Toast.makeText(TarefaActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            pd.dismiss();
-                            Toast.makeText(TarefaActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                            UploadTask uploadTask = childRef.putFile(filePath);
+
+
+                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                                 @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    double progress =(100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();                // for displaying the upload percentage in progress bar.
-                                    pd.setMessage(((int)progress) + "% Uploaded..");
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    pd.dismiss();
+                                    Toast.makeText(TarefaActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
-                else {
-                    Toast.makeText(TarefaActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    pd.dismiss();
+                                    Toast.makeText(TarefaActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();                // for displaying the upload percentage in progress bar.
+                                            pd.setMessage(((int) progress) + "% Uploaded..");
+                                        }
+                                    });
+                        }
+                                    else {
+                                    Toast.makeText(TarefaActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                // escolhendo a pasta firebase
+                                if (rdPasta2.isChecked()) {
+                                    StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com/teste2");    //altere o URL de acordo com seu aplicativo firebase
+
+                                    StorageReference childRef = storageRef.child(filePath.getLastPathSegment());
+
+
+                                    UploadTask uploadTask = childRef.putFile(filePath);
+
+                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            pd.dismiss();
+                                            Toast.makeText(TarefaActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            pd.dismiss();
+                                            Toast.makeText(TarefaActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();                // for displaying the upload percentage in progress bar.
+                                                    pd.setMessage(((int) progress) + "% Uploaded..");
+                                                }
+                                            });
+
+                                } else {
+                                    Toast.makeText(TarefaActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                                }
+
+
                 }
 
 
@@ -255,6 +316,8 @@ public class TarefaActivity extends AppCompatActivity {
         });
 
         configurarRecycler();
+
+
     }
 
     RecyclerView recyclerView;
@@ -309,14 +372,23 @@ public class TarefaActivity extends AppCompatActivity {
 
             try {
 
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);            //getting image from gallery
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);            //Obtendo imagem da galeria
+
+                imgView.setImageBitmap(bitmap);                                                               //Definir imagem para ImageView
 
 
-                imgView.setImageBitmap(bitmap);                                                               //Setting image to ImageView
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        if (requestCode == RESULT_OK){
+
+            filePath = data.getData();
+
+        }
+
     }
 
     protected void showProgressDialog(String title, String msg) {

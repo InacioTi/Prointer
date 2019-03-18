@@ -77,8 +77,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="105dp"
-        android:layout_height="26dp"
+        android:layout_width="128dp"
+        android:layout_height="28dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Semestre: "
@@ -89,8 +89,8 @@
 
     <Spinner
         android:id="@+id/spnSemestre"
-        android:layout_width="0dp"
-        android:layout_height="26dp"
+        android:layout_width="224dp"
+        android:layout_height="25dp"
         android:layout_marginTop="8dp"
         android:entries="@array/semestre"
         app:layout_constraintLeft_toRightOf="@+id/textView2"
@@ -102,7 +102,7 @@
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:layout_marginRight="8dp"
         android:text="Este cliente é VIP"
         app:layout_constraintHorizontal_bias="0.0"
@@ -146,13 +146,15 @@
         android:text="Anexar"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkVip" />
+        app:layout_constraintTop_toBottomOf="@+id/chkVip"
+        app:layout_constraintVertical_bias="0.365" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="382dp"
-        android:layout_height="337dp"
+        android:layout_width="396dp"
+        android:layout_height="333dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -160,5 +162,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <RadioButton
+        android:id="@+id/rdPasta1"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Pasta Privada"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toEndOf="@+id/btnAnexar"
+        app:layout_constraintTop_toBottomOf="@+id/chkVip"
+        app:layout_constraintVertical_bias="0.446" />
+
+    <RadioButton
+        android:id="@+id/rdPasta2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Pasta Privada"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rdPasta1"
+        app:layout_constraintTop_toBottomOf="@+id/chkVip" />
 
 </android.support.constraint.ConstraintLayout>
