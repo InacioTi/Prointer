@@ -145,7 +145,7 @@ public class Main2Activity extends AppCompatActivity
             startActivity(new Intent(this, GridLayoutCardAdpter.class));
 
         }else if (id == R.id.nav_mensagens) {
-            startActivity(new Intent(this, UsersListActivity.class));
+            startActivity(new Intent(this, HistoryActivity.class));
 
         }
 

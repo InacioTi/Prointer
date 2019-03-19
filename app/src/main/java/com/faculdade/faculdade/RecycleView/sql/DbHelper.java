@@ -1,8 +1,15 @@
 package com.faculdade.faculdade.RecycleView.sql;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.faculdade.faculdade.Login.model.User;
+import com.faculdade.faculdade.RecycleView.repository.Tarefa;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -28,4 +35,5 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //db.execSQL(UPDATE_TABLE);
     }
+
 }

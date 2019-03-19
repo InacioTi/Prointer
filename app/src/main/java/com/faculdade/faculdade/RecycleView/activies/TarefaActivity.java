@@ -293,6 +293,19 @@ public class TarefaActivity extends AppCompatActivity {
                     //alerta ao alterar o recycle view
 
 
+                    //enviando todos os dados da Do titulo para a minha intent/bundle em history
+                    Intent intent = new Intent(TarefaActivity.this, HistoryActivity.class);
+
+                    Bundle params = new Bundle();
+
+                    params.putString("Titulo", txtTitulo.getText().toString());
+                    params.putString("Desc", txtDesc.getText().toString());
+
+                    intent.putExtras(params);
+
+                    startActivity(intent);
+
+
                     //limpa os campos
                     TarefaEditado = null;
                     txtTitulo.setText("");
@@ -316,7 +329,6 @@ public class TarefaActivity extends AppCompatActivity {
         });
 
         configurarRecycler();
-
 
     }
 
