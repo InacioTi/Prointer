@@ -5,6 +5,8 @@ import  com.faculdade.faculdade.RecycleView.repository.Tarefa;
 import  com.faculdade.faculdade.RecycleView.model.TarefaDAO;
 import com.faculdade.faculdade.Login.activities.LoginActivity;
 import com.faculdade.faculdade.Login.adapter.UsersRecyclerAdapter;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,13 +43,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,6 +66,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class TarefaActivity extends AppCompatActivity {
+
+    DatePickerDialog datePickerDialogDataLocacao;
+    TimePickerDialog timePickerDialogHorarioInicial;
+    EditText txtData, txtHorarioInicial;
 
     private ProgressDialog progressDialog;
 
@@ -70,10 +84,7 @@ public class TarefaActivity extends AppCompatActivity {
     //creating reference to firebase storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-
-
     StorageReference storageRef = storage.getReferenceFromUrl("gs://faculdade-e089d.appspot.com");    //altere o URL de acordo com seu aplicativo firebase
-
 
     Tarefa TarefaEditado = null;
 
@@ -90,6 +101,59 @@ public class TarefaActivity extends AppCompatActivity {
         return index;
     }
 
+//evento para pegar data e hora local
+    public  void criarEventos() {
+
+        txtData = (EditText) this.findViewById(R.id.txtData);
+        txtHorarioInicial = (EditText) this.findViewById(R.id.txtHorarioInicial);
+
+        final Calendar calendarDataAtual = Calendar.getInstance();
+        int anoAtual = calendarDataAtual.get(Calendar.YEAR);
+        int mesAtual = calendarDataAtual.get(Calendar.MONTH);
+        int diaAtual = calendarDataAtual.get(Calendar.DAY_OF_MONTH);
+
+        final Calendar horarioAtual = Calendar.getInstance();
+        int horaAtual = horarioAtual.get(Calendar.HOUR_OF_DAY);
+        int minutoAtual = horarioAtual.get(Calendar.MINUTE);
+
+        //CRIANDO DATA
+        datePickerDialogDataLocacao = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int anoSelecionado, int mesSelecionado, int diaSelecionado) {
+                String mes = (String.valueOf(mesSelecionado + 1).length() == 1 ? "0" + (mesSelecionado + 1) : String.valueOf(mesSelecionado));
+
+                txtData.setText(diaSelecionado + "/" + mes + "/" + anoSelecionado);
+            }
+        }, anoAtual, mesAtual, diaAtual);
+
+        txtData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialogDataLocacao.show();
+            }
+        });
+
+        //CRIANDO HORÁRIOS INICIAL
+        timePickerDialogHorarioInicial = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker arg0, int hora, int minutos) {
+
+                txtHorarioInicial.setText(hora + ":" + minutos);
+            }
+        }, horaAtual, minutoAtual, true);
+
+        txtHorarioInicial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialogHorarioInicial.show();
+            }
+        });
+
+    }
+
+//evento para pegar data e hora local
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -97,6 +161,11 @@ public class TarefaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tarefas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //evento para pegar data e hora local
+        criarEventos();
+        //evento para pegar data e hora local
+
 
         //verifica se começou agora ou se veio de uma edição
         Intent intent = getIntent();
@@ -109,11 +178,17 @@ public class TarefaActivity extends AppCompatActivity {
             EditText txtDesc = (EditText)findViewById(R.id.txtDesc);
             Spinner spnSemestre = (Spinner)findViewById(R.id.spnSemestre);
             CheckBox chkVip = (CheckBox)findViewById(R.id.chkVip);
+            EditText txtData = (EditText) this.findViewById(R.id.txtData);
+            EditText  txtHorarioInicial = (EditText) this.findViewById(R.id.txtHorarioInicial);
 
             txtTitulo.setText(TarefaEditado.getTitulo());
             txtDesc.setText(TarefaEditado.getDesc());
             chkVip.setChecked(TarefaEditado.getVip());
             spnSemestre.setSelection(getIndex(spnSemestre, TarefaEditado.getSemestre()));
+            txtData.setText(TarefaEditado.getData());
+            txtHorarioInicial.setText(TarefaEditado.getHorainicio());
+
+
             if(TarefaEditado.getProfessor() != null){
                 RadioButton rb;
                 if(TarefaEditado.getProfessor().equals("P"))
@@ -167,10 +242,11 @@ public class TarefaActivity extends AppCompatActivity {
             }
         });
 
+
         Button btnSalvar = (Button)findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
 
-
+            //fazer upload do anexo
             @Override
             public void onClick(View view) {
                 if(filePath != null) {
@@ -249,18 +325,20 @@ public class TarefaActivity extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(TarefaActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
                                 }
-
-
                 }
+                //fazer upload do anexo
 
 
                 //carregando os campos
-
                 EditText txtTitulo = (EditText)findViewById(R.id.txtTitulo);
                 EditText txtDesc = (EditText)findViewById(R.id.txtDesc);
                 Spinner spnSemestre = (Spinner)findViewById(R.id.spnSemestre);
                 RadioGroup rgProfessor = (RadioGroup)findViewById(R.id.rgProfessor);
                 CheckBox chkVip = (CheckBox)findViewById(R.id.chkVip);
+                TextView date = (TextView)findViewById(R.id.date);
+                EditText txtData = (EditText) findViewById(R.id.txtData);
+                EditText  txtHorarioInicial = (EditText)findViewById(R.id.txtHorarioInicial);
+                //carregando os campos
 
                 //pegando os valores
                 String titulo = txtTitulo.getText().toString();
@@ -268,14 +346,17 @@ public class TarefaActivity extends AppCompatActivity {
                 String semestre = spnSemestre.getSelectedItem().toString();
                 boolean vip = chkVip.isChecked();
                 String professor = rgProfessor.getCheckedRadioButtonId() == R.id.rbProfessor ? "Professor" : "Aluno";
+                String data = txtData.getText().toString();
+                String horainicio = txtHorarioInicial.getText().toString();
+                //pegando os valores
 
                 //salvando os dados
                 TarefaDAO dao = new TarefaDAO(getBaseContext());
                 boolean sucesso;
                 if(TarefaEditado != null)
-                    sucesso = dao.salvar(TarefaEditado.getId(), titulo, descri  , professor, semestre, vip);
+                    sucesso = dao.salvar(TarefaEditado.getId(), titulo, descri  , professor, semestre, vip, data, horainicio);
                 else
-                    sucesso = dao.salvar(titulo, descri , professor, semestre, vip);
+                    sucesso = dao.salvar(titulo, descri , professor, semestre, vip, data, horainicio);
 
                 if(sucesso) {
                     Tarefa tarefa = dao.retornarUltimo();
@@ -303,13 +384,17 @@ public class TarefaActivity extends AppCompatActivity {
 
                     intent.putExtras(params);
 
-                    startActivity(intent);
+                    //startActivity(intent);
+
+                    //enviando todos os dados da Do titulo para a minha intent/bundle em history
 
 
                     //limpa os campos
                     TarefaEditado = null;
                     txtTitulo.setText("");
                     txtDesc.setText("");
+                    txtData.setText(null);
+                    txtHorarioInicial.setText(null);
                     rgProfessor.setSelected(false);
                     spnSemestre.setSelection(0);
                     chkVip.setChecked(false);
@@ -329,6 +414,7 @@ public class TarefaActivity extends AppCompatActivity {
         });
 
         configurarRecycler();
+
 
     }
 
@@ -409,5 +495,7 @@ public class TarefaActivity extends AppCompatActivity {
     protected void dismissProgressDialog() {
         progressDialog.dismiss();
     }
+
+
 
 }

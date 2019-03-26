@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main2">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -21,5 +21,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_lista" />
+        tools:listitem="@layout/item_history_lista" />
 </android.support.constraint.ConstraintLayout>

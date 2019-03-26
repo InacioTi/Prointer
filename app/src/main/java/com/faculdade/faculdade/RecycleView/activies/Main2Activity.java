@@ -41,6 +41,8 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+      //  criarEventos();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +71,12 @@ public class Main2Activity extends AppCompatActivity
 
     }
 
+   // protected  void criarEventos(){
+
+   //     startActivity(new Intent(this, StaggeredGridLayoutActivity.class));
+  //  }
+
+
     public void linearVertical(View view) {
         startActivity(new Intent(this, LinearLayoutActivity.class));
     }
@@ -82,6 +90,8 @@ public class Main2Activity extends AppCompatActivity
     }
 
     public void staggredGrid(View view) {
+
+
         startActivity(new Intent(this, StaggeredGridLayoutActivity.class));
     }
 

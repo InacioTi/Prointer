@@ -28,7 +28,9 @@ public class TarefaDAO {
             String professor = cursor.getString(cursor.getColumnIndex("Professor"));
             String semestre = cursor.getString(cursor.getColumnIndex("Semestre"));
             boolean vip = cursor.getInt(cursor.getColumnIndex("Vip")) > 0;
-            tarefas.add(new Tarefa(id, titulo,descri, professor, semestre, vip));
+            String data = cursor.getString(cursor.getColumnIndex("Data"));
+            String horainicio = cursor.getString(cursor.getColumnIndex("HoraInicial"));
+            tarefas.add(new Tarefa(id, titulo,descri, professor, semestre, vip, data, horainicio));
         }
         cursor.close();
         return tarefas;
@@ -43,24 +45,28 @@ public class TarefaDAO {
             String professor = cursor.getString(cursor.getColumnIndex("Professor"));
             String semestre = cursor.getString(cursor.getColumnIndex("Semestre"));
             boolean vip = cursor.getInt(cursor.getColumnIndex("Vip")) > 0;
+            String data = cursor.getString(cursor.getColumnIndex("Data"));
+            String horainicio = cursor.getString(cursor.getColumnIndex("HoraInicial"));
             cursor.close();
-            return new Tarefa(id, titulo, descri, professor, semestre, vip);
+            return new Tarefa(id, titulo, descri, professor, semestre, vip, data, horainicio);
         }
 
         return null;
     }
 
-    public boolean salvar(String titulo, String descri, String professor, String semestre, boolean vip){
-        return salvar(0, titulo, descri, professor, semestre, vip);
+    public boolean salvar(String titulo, String descri, String professor, String semestre, boolean vip, String data, String horainicio){
+        return salvar(0, titulo, descri, professor, semestre, vip, data, horainicio);
     }
 
-    public boolean salvar(int id, String titulo,String descri, String professor, String semestre, boolean vip){
+    public boolean salvar(int id, String titulo,String descri, String professor, String semestre, boolean vip, String data, String horainicio){
         ContentValues cv = new ContentValues();
         cv.put("Titulo", titulo);
         cv.put("Descri", descri);
         cv.put("Professor", professor);
         cv.put("Semestre", semestre);
         cv.put("Vip", vip ? 1 : 0);
+        cv.put("Data", data);
+        cv.put("HoraInicial", horainicio);
         if(id > 0)
             return gw.getDatabase().update(TABLE_TAREFAS, cv, "ID=?", new String[]{ id + "" }) > 0;
         else

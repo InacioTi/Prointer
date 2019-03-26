@@ -69,11 +69,15 @@ public class GridLayoutCardAdpter extends AppCompatActivity {
             EditText txtDesc = (EditText)findViewById(R.id.txtDesc);
             Spinner spnSemestre = (Spinner)findViewById(R.id.spnSemestre);
             CheckBox chkVip = (CheckBox)findViewById(R.id.chkVip);
+            EditText txtData = (EditText) this.findViewById(R.id.txtData);
+            EditText  txtHorarioInicial = (EditText) this.findViewById(R.id.txtHorarioInicial);
 
             txtTitulo.setText(TarefaEditado.getTitulo());
             txtDesc.setText(TarefaEditado.getDesc());
             chkVip.setChecked(TarefaEditado.getVip());
             spnSemestre.setSelection(getIndex(spnSemestre, TarefaEditado.getSemestre()));
+            txtData.setText(TarefaEditado.getData());
+            txtHorarioInicial.setText(TarefaEditado.getHorainicio());
 
 
             if(TarefaEditado.getProfessor() != null){
@@ -119,6 +123,9 @@ public class GridLayoutCardAdpter extends AppCompatActivity {
                 Spinner spnSemestre = (Spinner)findViewById(R.id.spnSemestre);
                 RadioGroup rgProfessor = (RadioGroup)findViewById(R.id.rgProfessor);
                 CheckBox chkVip = (CheckBox)findViewById(R.id.chkVip);
+                EditText txtData = (EditText) findViewById(R.id.txtData);
+                EditText  txtHorarioInicial = (EditText)findViewById(R.id.txtHorarioInicial);
+
 
                 //pegando os valores
                 String titulo = txtTitulo.getText().toString();
@@ -126,14 +133,16 @@ public class GridLayoutCardAdpter extends AppCompatActivity {
                 String semestre = spnSemestre.getSelectedItem().toString();
                 boolean vip = chkVip.isChecked();
                 String professor = rgProfessor.getCheckedRadioButtonId() == R.id.rbProfessor ? "P" : "A";
+                String data = txtData.getText().toString();
+                String horainicio = txtHorarioInicial.getText().toString();
 
                 //salvando os dados
                 TarefaDAO dao = new TarefaDAO(getBaseContext());
                 boolean sucesso;
                 if(TarefaEditado != null)
-                    sucesso = dao.salvar(TarefaEditado.getId(), titulo, descri, professor, semestre, vip);
+                    sucesso = dao.salvar(TarefaEditado.getId(), titulo, descri, professor, semestre, vip, data, horainicio);
                 else
-                    sucesso = dao.salvar(titulo, descri,professor, semestre, vip);
+                    sucesso = dao.salvar(titulo, descri,professor, semestre, vip, data, horainicio);
 
                 if(sucesso) {
                     Tarefa tarefa = dao.retornarUltimo();
@@ -146,6 +155,8 @@ public class GridLayoutCardAdpter extends AppCompatActivity {
                     TarefaEditado = null;
                     txtTitulo.setText("");
                     txtDesc.setText("");
+                    txtData.setText(null);
+                    txtHorarioInicial.setText(null);
                     rgProfessor.setSelected(false);
                     spnSemestre.setSelection(0);
                     chkVip.setChecked(false);

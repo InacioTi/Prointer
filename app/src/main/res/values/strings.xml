@@ -48,7 +48,9 @@
     <string name="Grid">Projetos</string>
     <string name="Stargger">Tarefas</string>
     <string name="LinearLayout">Noticias</string>
-    <string name="title_activity_tarefas">TarefasActivity</string>
+    <string name="title_activity_tarefas">Tarefas Criadas</string>
+    <string name="title_activity_History">Historico</string>
+
     <!--  Nome do actvity -->
 
 </resources>

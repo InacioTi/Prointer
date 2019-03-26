@@ -8,11 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".RecycleView.activies.HistoryActivity"></activity>
+
+        <activity
+            android:name=".RecycleView.activies.HistoryActivity"
+            android:label="@string/title_activity_History"
+            />
+
+
         <activity
             android:name=".RecycleView.activies.TarefaActivity"
             android:label="@string/title_activity_tarefas"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"
+            />
         <activity
             android:name=".Login.activities.LoginActivity"
             android:label="@string/app_name"
@@ -53,6 +60,9 @@
         <activity
             android:name=".RecycleView.activies.LinearLayoutHorizontalActivity"
             android:label="@string/LinearLayout" />
+
+
+
     </application>
 
 </manifest>

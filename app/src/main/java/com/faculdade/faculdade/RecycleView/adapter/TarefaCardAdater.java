@@ -58,6 +58,7 @@ public class TarefaCardAdater extends RecyclerView.Adapter<TarefaCardHolder> {
 
         holder.main_card_tarefa_title.setText(tarefas.get(position).getTitulo());
         holder.main_card_tarefa_desc.setText(tarefas.get(position).getDesc());
+        holder.date.setText(tarefas.get(position).getData());
         final Tarefa tarefa = tarefas.get(position);
         holder.btnExcluir.setOnClickListener(new Button.OnClickListener() {
             @Override

@@ -13,9 +13,9 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Crud.db";
-    private static final int DATABASE_VERSION = 1;
-    private final String CREATE_TABLE = "CREATE TABLE Tarefas (ID INTEGER PRIMARY KEY AUTOINCREMENT, Titulo TEXT NOT NULL, Professor TEXT, Semestre TEXT NOT NULL, Descri TEXT, Vip INTEGER NOT NULL);";
+    private static final String DATABASE_NAME = "tarefas.db";
+    private static final int DATABASE_VERSION = 2;
+    private final String CREATE_TABLE = "CREATE TABLE Tarefas (ID INTEGER PRIMARY KEY AUTOINCREMENT, Titulo TEXT NOT NULL, Professor TEXT, Semestre TEXT NOT NULL, Descri TEXT, Vip INTEGER NOT NULL, Data TEXT NOT NULL, HoraInicial TEXT NOT NULL);";
 
     //private final String CREATE_TABLE = "ALTER TABLE Tarefas ADD COLUMN Descri TEXT; ";
     //private final String CREATE_TABLE = "DROP TABLE IF EXISTS Tarefas;";

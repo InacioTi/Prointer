@@ -7,20 +7,23 @@ import android.widget.TextView;
 
 import com.faculdade.faculdade.R;
 
-public class TarefaCardHolder extends RecyclerView.ViewHolder {
+public class HistoryHolder extends RecyclerView.ViewHolder {
+
 
     public TextView main_card_tarefa_title;
     public TextView main_card_tarefa_desc;
-    public TextView date;
-    public ImageButton btnEditar;
-    public ImageButton btnExcluir;
+    public  TextView date;
+    public  TextView hora;
 
-    public TarefaCardHolder(View itemView) {
+
+    public HistoryHolder(View itemView) {
         super(itemView);
         main_card_tarefa_title = (TextView) itemView.findViewById(R.id.main_card_tarefa_title);
         main_card_tarefa_desc = (TextView) itemView.findViewById(R.id.main_card_tarefa_desc);
         date = (TextView) itemView.findViewById(R.id.date);
-        btnEditar = (ImageButton) itemView.findViewById(R.id.btnEdit);
-        btnExcluir = (ImageButton) itemView.findViewById(R.id.btnDelete);
+        hora = (TextView) itemView.findViewById(R.id.hora);
+
     }
+
+
 }
