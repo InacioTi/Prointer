@@ -12,6 +12,7 @@ public class TarefaCardHolder extends RecyclerView.ViewHolder {
     public TextView main_card_tarefa_title;
     public TextView main_card_tarefa_desc;
     public TextView date;
+    public  TextView hora;
     public ImageButton btnEditar;
     public ImageButton btnExcluir;
 
@@ -20,6 +21,7 @@ public class TarefaCardHolder extends RecyclerView.ViewHolder {
         main_card_tarefa_title = (TextView) itemView.findViewById(R.id.main_card_tarefa_title);
         main_card_tarefa_desc = (TextView) itemView.findViewById(R.id.main_card_tarefa_desc);
         date = (TextView) itemView.findViewById(R.id.date);
+        hora = (TextView) itemView.findViewById(R.id.hora);
         btnEditar = (ImageButton) itemView.findViewById(R.id.btnEdit);
         btnExcluir = (ImageButton) itemView.findViewById(R.id.btnDelete);
     }

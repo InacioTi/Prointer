@@ -196,15 +196,12 @@
     <RadioButton
         android:id="@+id/rdPasta1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Pasta Privada"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintStart_toEndOf="@+id/btnAnexar"
-        app:layout_constraintTop_toBottomOf="@+id/chkVip"
-        app:layout_constraintVertical_bias="0.47" />
+        app:layout_constraintTop_toBottomOf="@+id/chkVip" />
 
     <RadioButton
         android:id="@+id/rdPasta2"
@@ -212,11 +209,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Pasta Privada"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintStart_toEndOf="@+id/rdPasta1"
-        app:layout_constraintTop_toBottomOf="@+id/chkVip"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintTop_toBottomOf="@+id/chkVip" />
 
 </android.support.constraint.ConstraintLayout>

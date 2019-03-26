@@ -22,11 +22,11 @@
             android:title="Noticias" />
         <item
             android:id="@+id/nav_tarefas"
-            android:icon="@mipmap/noticias"
+            android:icon="@mipmap/tarefas"
             android:title="Tarefas" />
         <item
             android:id="@+id/nav_projetos"
-            android:icon="@mipmap/noticias"
+            android:icon="@mipmap/projetos"
             android:title="Projetos" />
     </group>
 
@@ -43,8 +43,8 @@
 
             <item
                 android:id="@+id/nav_mensagens"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Mensagens" />
+                android:icon="@mipmap/ic_historico"
+                android:title="Historico" />
         </menu>
     </item>
 

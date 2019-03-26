@@ -50,7 +50,7 @@ public class TarefaCardAdater extends RecyclerView.Adapter<TarefaCardHolder> {
     @Override
     public TarefaCardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new TarefaCardHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.main_tarefa_card_view, parent, false));
+                .inflate(R.layout.main_projeto_card_view, parent, false));
     }
 
     @Override
@@ -59,6 +59,7 @@ public class TarefaCardAdater extends RecyclerView.Adapter<TarefaCardHolder> {
         holder.main_card_tarefa_title.setText(tarefas.get(position).getTitulo());
         holder.main_card_tarefa_desc.setText(tarefas.get(position).getDesc());
         holder.date.setText(tarefas.get(position).getData());
+        holder.hora.setText(tarefas.get(position).getHorainicio());
         final Tarefa tarefa = tarefas.get(position);
         holder.btnExcluir.setOnClickListener(new Button.OnClickListener() {
             @Override
