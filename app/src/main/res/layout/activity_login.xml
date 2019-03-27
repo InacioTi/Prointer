@@ -17,11 +17,21 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:src="@drawable/logo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nomelogo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/nomelogo"
+            android:textColor="@color/colorText"
+            android:textSize="16dp" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayoutEmail"
